@@ -2,27 +2,29 @@ package com.epam.model;
 
 import java.sql.Date;
 
-public class StudentEntity {
+public class TeacherEntity {
     private int id;
     private String firstName;
     private String lastName;
     private String address;
-    private Date birthday;
     private String phone;
-    private int classID;
+    private int salary;
+    private String category;
+    private Date birthday;
 
-    public StudentEntity() {
+    public TeacherEntity() {
     }
 
-    public StudentEntity(int id, String firstName, String lastName, String address,
-                         Date birthday, String phone, int classID) {
+    public TeacherEntity(int id, String firstName, String lastName, String address,
+                         String phone, int salary, String category, Date birthday) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
-        this.birthday = birthday;
         this.phone = phone;
-        this.classID = classID;
+        this.salary = salary;
+        this.category = category;
+        this.birthday = birthday;
     }
 
     public int getId() {
@@ -57,14 +59,6 @@ public class StudentEntity {
         this.address = address;
     }
 
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -73,11 +67,27 @@ public class StudentEntity {
         this.phone = phone;
     }
 
-    public int getClassID() {
-        return classID;
+    public int getSalary() {
+        return salary;
     }
 
-    public void setClassID(int classID) {
-        this.classID = classID;
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 }
