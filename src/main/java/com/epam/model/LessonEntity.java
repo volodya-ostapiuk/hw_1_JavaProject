@@ -1,17 +1,30 @@
 package com.epam.model;
 
+import java.sql.Date;
+
 public class LessonEntity {
     private int id;
-    private String name;
-    private String description;
+    private int classID;
+    private int roomID;
+    private int subjectID;
+    private int teacherID;
+    private String topic;
+    private String homework;
+    private Date date;
 
     public LessonEntity() {
     }
 
-    public LessonEntity(int id, String number, String description) {
+    public LessonEntity(int id, int classID, int roomID, int subjectID,
+                        int teacherID, String topic, String homework, Date date) {
         this.id = id;
-        this.name = number;
-        this.description = description;
+        this.classID = classID;
+        this.roomID = roomID;
+        this.subjectID = subjectID;
+        this.teacherID = teacherID;
+        this.topic = topic;
+        this.homework = homework;
+        this.date = date;
     }
 
     public int getId() {
@@ -22,19 +35,59 @@ public class LessonEntity {
         this.id = id;
     }
 
-    public String getNumber() {
-        return name;
+    public int getClassID() {
+        return classID;
     }
 
-    public void setNumber(String number) {
-        this.name = number;
+    public void setClassID(int classID) {
+        this.classID = classID;
     }
 
-    public String getDescription() {
-        return description;
+    public int getRoomID() {
+        return roomID;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRoomID(int roomID) {
+        this.roomID = roomID;
+    }
+
+    public int getSubjectID() {
+        return subjectID;
+    }
+
+    public void setSubjectID(int subjectID) {
+        this.subjectID = subjectID;
+    }
+
+    public int getTeacherID() {
+        return teacherID;
+    }
+
+    public void setTeacherID(int teacherID) {
+        this.teacherID = teacherID;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public String getHomework() {
+        return homework;
+    }
+
+    public void setHomework(String homework) {
+        this.homework = homework;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
