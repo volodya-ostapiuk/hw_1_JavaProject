@@ -8,9 +8,9 @@ public class SubjectEntity {
     public SubjectEntity() {
     }
 
-    public SubjectEntity(int id, String number, String description) {
+    public SubjectEntity(int id, String name, String description) {
         this.id = id;
-        this.name = number;
+        this.name = name;
         this.description = description;
     }
 
@@ -22,12 +22,12 @@ public class SubjectEntity {
         this.id = id;
     }
 
-    public String getNumber() {
+    public String getName() {
         return name;
     }
 
-    public void setNumber(String number) {
-        this.name = number;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
