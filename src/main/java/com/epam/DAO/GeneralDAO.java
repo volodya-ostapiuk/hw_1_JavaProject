@@ -4,9 +4,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface GeneralDAO<T, ID> {
-    List<T> findAll() throws SQLException;
+    List<T> readAll() throws SQLException;
 
-    T findById(ID id) throws SQLException;
+    T readById(ID id) throws SQLException;
 
     int create(T entity) throws SQLException;
 
