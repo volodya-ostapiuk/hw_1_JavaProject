@@ -10,7 +10,7 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark" style="background-color: purple">
             <div>
-                <a href="<%=request.getContextPath()%>/listlesson%>" class="navbar-brand">School by Ostapiuk</a>
+                <a href="<%=request.getContextPath()%>/listlesson" class="navbar-brand">School by Ostapiuk</a>
             </div>
             <ul class="navbar-nav">
                 <li><a href="<%=request.getContextPath()%>/listclass" class="nav-link">Classes</a></li>

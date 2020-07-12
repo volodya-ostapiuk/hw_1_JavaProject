@@ -10,7 +10,7 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark" style="background-color: purple">
             <div>
-                <a href="<%=request.getContextPath()%>/listclass" class="navbar-brand">School by Ostapiuk</a>
+                <a href="<%=request.getContextPath()%>/listroom" class="navbar-brand">School by Ostapiuk</a>
             </div>
             <ul class="navbar-nav">
                 <li><a href="<%=request.getContextPath()%>/listclass" class="nav-link">Classes</a></li>
@@ -35,41 +35,37 @@
     <br>
     <div class="row">
         <div class="container">
-            <h3 class="text-center">List of Classes</h3>
+            <h3 class="text-center">List of Rooms</h3>
             <hr>
         <div class="container text-left">
-            <a href="<%=request.getContextPath()%>/newclass" class="btn btn-success">Add New Class</a>
+            <a href="<%=request.getContextPath()%>/newroom" class="btn btn-success">Add New Room</a>
         </div>
         <br>
         <table class="table table-bordered">
             <thead>
                 <tr style="text-align:center">
                     <th>ID</th>
-                    <th>Name</th>
+                    <th>Number</th>
                     <th>Description</th>
-                    <th>Teacher ID</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="clazz" items="${listClass}">
+                <c:forEach var="room" items="${listRoom}">
                 <tr style="text-align:center">
                     <td>
-                        <c:out value="${clazz.id}" />
+                        <c:out value="${room.id}" />
                     </td>
                     <td>
-                        <c:out value="${clazz.name}" />
+                        <c:out value="${room.number}" />
                     </td>
                     <td>
-                        <c:out value="${clazz.description}" />
+                        <c:out value="${room.description}" />
                     </td>
                     <td>
-                         <c:out value="${clazz.teacherID}" />
-                    </td>
-                    <td>
-                        <a href="editclass?id=<c:out value='${clazz.id}' />">Edit</a>
+                        <a href="editroom?id=<c:out value='${room.id}' />">Edit</a>
                         &nbsp;&nbsp;&nbsp;
-                        <a href="deleteclass?id=<c:out value='${clazz.id}' />">Delete</a>
+                        <a href="deleteroom?id=<c:out value='${room.id}' />">Delete</a>
                     </td>
                 </tr>
                 </c:forEach>

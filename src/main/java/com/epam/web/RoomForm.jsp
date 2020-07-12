@@ -10,7 +10,7 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark" style="background-color: purple">
             <div>
-                <a href="<%=request.getContextPath()%>/listclass" class="navbar-brand">School by Ostapiuk</a>
+                <a href="<%=request.getContextPath()%>/listroom" class="navbar-brand">School by Ostapiuk</a>
             </div>
             <ul class="navbar-nav">
                 <li><a href="<%=request.getContextPath()%>/listclass" class="nav-link">Classes</a></li>
@@ -36,32 +36,28 @@
     <div class="container col-md-5">
         <div class="card">
             <div class="card-body">
-                <c:if test="${clazz != null}">
-                    <form action="updateclass" method="post">
+                <c:if test="${room != null}">
+                    <form action="updateroom" method="post">
                 </c:if>
-                <c:if test="${clazz == null}">
-                    <form action="insertclass" method="post">
+                <c:if test="${room == null}">
+                    <form action="insertroom" method="post">
                 </c:if>
                 <caption>
                     <h2>
-                        <c:if test="${clazz != null}">Edit Class</c:if>
-                        <c:if test="${clazz == null}">Add New Class</c:if>
+                        <c:if test="${room != null}">Edit Room</c:if>
+                        <c:if test="${room == null}">Add New Room</c:if>
                     </h2>
                 </caption>
-                <c:if test="${clazz != null}">
-                    <input type="hidden" name="id" value="<c:out value='${clazz.id}' />" />
+                <c:if test="${room != null}">
+                    <input type="hidden" name="id" value="<c:out value='${room.id}' />" />
                 </c:if>
                 <fieldset class="form-group">
-                    <label>Class Name</label> <input type="text" value="<c:out value='${clazz.name}' />"
-                    class="form-control" name="name" required="required">
+                    <label>Room Number</label> <input type="text" value="<c:out value='${room.number}' />"
+                    class="form-control" name="number" required="required">
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Class Description</label> <input type="text" value="<c:out value='${clazz.description}' />"
+                    <label>Room Description</label> <input type="text" value="<c:out value='${room.description}' />"
                     class="form-control" name="description" required="required">
-                </fieldset>
-                <fieldset class="form-group">
-                    <label>Class Teacher ID</label> <input type="number" value="<c:out value='${clazz.teacherID}' />"
-                    class="form-control" name="teacherID" required="required">
                 </fieldset>
                 <button type="submit" class="btn btn-success">Save</button>
                 </form>

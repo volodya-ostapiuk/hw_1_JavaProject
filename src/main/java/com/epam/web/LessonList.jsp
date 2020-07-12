@@ -10,7 +10,7 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark" style="background-color: purple">
             <div>
-                <a href="<%=request.getContextPath()%>/listlesson%>" class="navbar-brand">School by Ostapiuk</a>
+                <a href="<%=request.getContextPath()%>/listlesson" class="navbar-brand">School by Ostapiuk</a>
             </div>
             <ul class="navbar-nav">
                 <li><a href="<%=request.getContextPath()%>/listclass" class="nav-link">Classes</a></li>
@@ -56,7 +56,7 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="class" items="${listLesson}">
+                <c:forEach var="lesson" items="${listLesson}">
                 <tr style="text-align:center">
                     <td>
                         <c:out value="${lesson.id}" />
@@ -74,7 +74,7 @@
                          <c:out value="${lesson.teacherID}" />
                     </td>
                     <td>
-                        <c:out value="${lesson.topc}" />
+                        <c:out value="${lesson.topic}" />
                     </td>
                     <td>
                         <c:out value="${lesson.homework}" />
