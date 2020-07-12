@@ -10,7 +10,7 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark" style="background-color: purple">
             <div>
-                <a href="<%=request.getContextPath()%>/listclass%>" class="navbar-brand">School by Ostapiuk</a>
+                <a href="<%=request.getContextPath()%>/listlesson%>" class="navbar-brand">School by Ostapiuk</a>
             </div>
             <ul class="navbar-nav">
                 <li><a href="<%=request.getContextPath()%>/listclass" class="nav-link">Classes</a></li>
@@ -36,32 +36,48 @@
     <div class="container col-md-5">
         <div class="card">
             <div class="card-body">
-                <c:if test="${class != null}">
-                    <form action="updateclass" method="post">
+                <c:if test="${lesson != null}">
+                    <form action="updatelesson" method="post">
                 </c:if>
-                <c:if test="${class == null}">
-                    <form action="insertclass" method="post">
+                <c:if test="${lesson == null}">
+                    <form action="insertlesson" method="post">
                 </c:if>
                 <caption>
                     <h2>
-                        <c:if test="${class != null}">Edit Class</c:if>
-                        <c:if test="${class == null}">Add New Class</c:if>
+                        <c:if test="${lesson != null}">Edit Lesson</c:if>
+                        <c:if test="${lesson == null}">Add New Lesson</c:if>
                     </h2>
                 </caption>
-                <c:if test="${class != null}">
-                    <input type="hidden" name="id" value="<c:out value='${class.id}' />" />
+                <c:if test="${lesson != null}">
+                    <input type="hidden" name="id" value="<c:out value='${lesson.id}' />" />
                 </c:if>
                 <fieldset class="form-group">
-                    <label>Class Name</label> <input type="text" value="<c:out value='${class.name}' />"
-                    class="form-control" name="name" required="required">
+                    <label>Lesson Class ID</label> <input type="number" value="<c:out value='${lesson.classID}' />"
+                    class="form-control" name="classID" required="required">
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Class Description</label> <input type="text" value="<c:out value='${class.description}' />"
-                    class="form-control" name="description" required="required">
+                    <label>Lesson Room ID</label> <input type="number" value="<c:out value='${lesson.roomID}' />"
+                    class="form-control" name="roomID" required="required">
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Class Teacher ID</label> <input type="number" value="<c:out value='${class.teacherID}' />"
+                    <label>Lesson Subject ID</label> <input type="number" value="<c:out value='${lesson.subjectID}' />"
+                    class="form-control" name="subjectID" required="required">
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Lesson Teacher ID</label> <input type="number" value="<c:out value='${lesson.teacherID}' />"
                     class="form-control" name="teacherID" required="required">
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Lesson Topic</label> <input type="text" value="<c:out value='${lesson.topic}' />"
+                    class="form-control" name="topic" required="required">
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Lesson Homework</label> <input type="text" value="<c:out value='${lesson.homework}' />"
+                    class="form-control" name="homework" required="required">
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Lesson Date</label> <input type="date" value="<c:out value='${lesson.date}' />"
+                    class="form-control" name="date" required="required">
                 </fieldset>
                 <button type="submit" class="btn btn-success">Save</button>
                 </form>
