@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentDAOImplementation implements StudentDAO {
+public class StudentDAOImpl implements StudentDAO {
     private static final String GET_ALL = "select * from student";
     private static final String GET_BY_ID = "select * from student where student_id=?";
     private static final String INSERT = "insert into student (first_name, last_name, address, birthday, " +

@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeacherDAOImplementation implements TeacherDAO {
+public class TeacherDAOImpl implements TeacherDAO {
     private static final String GET_ALL = "select * from teacher";
     private static final String GET_BY_ID = "select * from teacher where teacher_id=?";
     private static final String INSERT = "insert into teacher (first_name, last_name, address, phone, " +

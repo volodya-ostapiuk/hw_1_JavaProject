@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LessonDAOImplementation implements LessonDAO {
+public class LessonDAOImpl implements LessonDAO {
     private static final String GET_ALL = "select * from lesson";
     private static final String GET_BY_ID = "select * from lesson where lesson_id=?";
     private static final String INSERT = "insert into lesson (class_id, room_id, subject_id, teacher_id, topic, " +

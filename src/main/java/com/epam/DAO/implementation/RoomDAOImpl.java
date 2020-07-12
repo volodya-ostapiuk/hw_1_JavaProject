@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomDAOImplementation implements RoomDAO {
+public class RoomDAOImpl implements RoomDAO {
     private static final String GET_ALL = "select * from room";
     private static final String GET_BY_ID = "select * from room where room_id=?";
     private static final String INSERT = "insert into room (number, description) values (?,?)";
