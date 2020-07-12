@@ -51,7 +51,7 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="subject" items="${listSubjects}">
+                <c:forEach var="subject" items="${listSubject}">
                 <tr style="text-align:center">
                     <td>
                         <c:out value="${subject.id}" />

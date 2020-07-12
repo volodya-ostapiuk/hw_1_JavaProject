@@ -10,7 +10,7 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark" style="background-color: purple">
             <div>
-                <a href="<%=request.getContextPath()%>/liststudent" class="navbar-brand">School by Ostapiuk</a>
+                <a href="<%=request.getContextPath()%>/listteacher" class="navbar-brand">School by Ostapiuk</a>
             </div>
             <ul class="navbar-nav">
                 <li><a href="<%=request.getContextPath()%>/listclass" class="nav-link">Classes</a></li>
@@ -35,10 +35,10 @@
     <br>
     <div class="row">
         <div class="container">
-            <h3 class="text-center">List of Students</h3>
+            <h3 class="text-center">List of Teachers</h3>
             <hr>
         <div class="container text-left">
-            <a href="<%=request.getContextPath()%>/newstudent" class="btn btn-success">Add New Student</a>
+            <a href="<%=request.getContextPath()%>/newteacher" class="btn btn-success">Add New Teacher</a>
         </div>
         <br>
         <table class="table table-bordered">
@@ -48,40 +48,44 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Address</th>
-                    <th>Birthday</th>
                     <th>Phone</th>
-                    <th>Class ID</th>
+                    <th>Salary</th>
+                    <th>Category</th>
+                    <th>Birthday</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="student" items="${listStudent}">
+                <c:forEach var="teacher" items="${listTeacher}">
                 <tr style="text-align:center">
                     <td>
-                        <c:out value="${student.id}" />
+                        <c:out value="${teacher.id}" />
                     </td>
                     <td>
-                        <c:out value="${student.firstname}" />
+                        <c:out value="${teacher.firstname}" />
                     </td>
                     <td>
-                        <c:out value="${student.lastname}" />
+                        <c:out value="${teacher.lastname}" />
                     </td>
                     <td>
-                        <c:out value="${student.address}" />
+                        <c:out value="${teacher.address}" />
                     </td>
                     <td>
-                        <c:out value="${student.birthday}" />
+                        <c:out value="${teacher.phone}" />
                     </td>
                     <td>
-                        <c:out value="${student.phone}" />
+                        <c:out value="${teacher.salary}" />
                     </td>
                     <td>
-                        <c:out value="${student.classID}" />
+                        <c:out value="${teacher.category}" />
                     </td>
                     <td>
-                        <a href="editstudent?id=<c:out value='${student.id}' />">Edit</a>
+                        <c:out value="${teacher.birthday}" />
+                    </td>
+                    <td>
+                        <a href="editteacher?id=<c:out value='${teacher.id}' />">Edit</a>
                         &nbsp;&nbsp;&nbsp;
-                        <a href="deletestudent?id=<c:out value='${student.id}' />">Delete</a>
+                        <a href="deleteteacher?id=<c:out value='${teacher.id}' />">Delete</a>
                     </td>
                 </tr>
                 </c:forEach>
