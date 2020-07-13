@@ -115,6 +115,24 @@ public class ServletManagement extends HttpServlet {
                 case "/editteacher":
                     showEditTeacherForm(req, resp);
                     break;
+                case "/updateclass":
+                    updateClass(req, resp);
+                    break;
+                case "/updatelesson":
+                    updateLesson(req, resp);
+                    break;
+                case "/updateroom":
+                    updateRoom(req, resp);
+                    break;
+                case "/updatestudent":
+                    updateStudent(req, resp);
+                    break;
+                case "/updatesubject":
+                    updateSubject(req, resp);
+                    break;
+                case "/updateteacher":
+                    updateTeacher(req, resp);
+                    break;
             }
         } catch (SQLException exp) {
             throw new ServletException(exp);
@@ -315,5 +333,81 @@ public class ServletManagement extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("TeacherForm.jsp");
         request.setAttribute("teacher", teacher);
         dispatcher.forward(request, response);
+    }
+
+    private void updateClass(HttpServletRequest req, HttpServletResponse resp)
+            throws SQLException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        String name = req.getParameter("name");
+        String description = req.getParameter("description");
+        int teacherID = Integer.parseInt(req.getParameter("teacherID"));
+        ClassEntity classEntity = new ClassEntity(id, name, description, teacherID);
+        classController.create(classEntity);
+        resp.sendRedirect("listclass");
+    }
+
+    private void updateLesson(HttpServletRequest req, HttpServletResponse resp)
+            throws SQLException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        int classID = Integer.parseInt(req.getParameter("classID"));
+        int roomID = Integer.parseInt(req.getParameter("roomID"));
+        int subjectID = Integer.parseInt(req.getParameter("subjectID"));
+        int teacherID = Integer.parseInt(req.getParameter("teacherID"));
+        String topic = req.getParameter("topic");
+        String homework = req.getParameter("homework");
+        String date = req.getParameter("date");
+        LessonEntity lessonEntity = new LessonEntity(id, classID, roomID, subjectID, teacherID, topic, homework, date);
+        lessonController.create(lessonEntity);
+        resp.sendRedirect("listlesson");
+    }
+
+    private void updateRoom(HttpServletRequest req, HttpServletResponse resp)
+            throws SQLException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        String number = req.getParameter("number");
+        String description = req.getParameter("description");
+        RoomEntity roomEntity = new RoomEntity(id, number, description);
+        roomController.create(roomEntity);
+        resp.sendRedirect("listroom");
+    }
+
+    private void updateStudent(HttpServletRequest req, HttpServletResponse resp)
+            throws SQLException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        String firstName = req.getParameter("firstname");
+        String lastName = req.getParameter("lastname");
+        String address = req.getParameter("address");
+        String birthday = req.getParameter("birthday");
+        String phone = req.getParameter("phone");
+        int classID = Integer.parseInt(req.getParameter("classID"));
+        StudentEntity studentEntity = new StudentEntity(id, firstName, lastName, address, birthday, phone, classID);
+        studentController.create(studentEntity);
+        resp.sendRedirect("liststudent");
+    }
+
+    private void updateSubject(HttpServletRequest req, HttpServletResponse resp)
+            throws SQLException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        String name = req.getParameter("name");
+        String description = req.getParameter("description");
+        SubjectEntity subjectEntity = new SubjectEntity(id, name, description);
+        subjectController.create(subjectEntity);
+        resp.sendRedirect("listsubject");
+    }
+
+    private void updateTeacher(HttpServletRequest req, HttpServletResponse resp)
+            throws SQLException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        String firstName = req.getParameter("firstname");
+        String lastName = req.getParameter("lastname");
+        String address = req.getParameter("address");
+        String phone = req.getParameter("phone");
+        int salary = Integer.parseInt(req.getParameter("salary"));
+        String category = req.getParameter("category");
+        String birthday = req.getParameter("birthday");
+        TeacherEntity teacherEntity = new TeacherEntity(id, firstName, lastName, address, phone, salary,
+                category, birthday);
+        teacherController.create(teacherEntity);
+        resp.sendRedirect("listteacher");
     }
 }
