@@ -1,29 +1,29 @@
 package com.epam.controller;
 
-import com.epam.DAO.implementation.RoomDAOImpl;
-import com.epam.model.RoomEntity;
+import com.epam.DAO.implementation.StudentDAOImpl;
+import com.epam.model.StudentEntity;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class StudentController {
-    public List<RoomEntity> readAll() throws SQLException {
-        return new RoomDAOImpl().readAll();
+    public List<StudentEntity> readAll() throws SQLException {
+        return new StudentDAOImpl().readAll();
     }
 
-    public RoomEntity readById(Integer id) throws SQLException {
-        return new RoomDAOImpl().readById(id);
+    public StudentEntity readById(Integer id) throws SQLException {
+        return new StudentDAOImpl().readById(id);
     }
 
-    public int create(RoomEntity entity) throws SQLException {
-        return new RoomDAOImpl().create(entity);
+    public int create(StudentEntity entity) throws SQLException {
+        return new StudentDAOImpl().create(entity);
     }
 
-    public int update(RoomEntity entity) throws SQLException {
-        return new RoomDAOImpl().update(entity);
+    public int update(StudentEntity entity) throws SQLException {
+        return new StudentDAOImpl().update(entity);
     }
 
     public int delete(Integer id) throws SQLException {
-        return new RoomDAOImpl().delete(id);
+        return new StudentDAOImpl().delete(id);
     }
 }

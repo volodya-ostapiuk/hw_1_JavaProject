@@ -8,6 +8,12 @@ public class RoomEntity {
     public RoomEntity() {
     }
 
+    public RoomEntity(String number, String description) {
+        super();
+        this.number = number;
+        this.description = description;
+    }
+
     public RoomEntity(int id, String number, String description) {
         this.id = id;
         this.number = number;

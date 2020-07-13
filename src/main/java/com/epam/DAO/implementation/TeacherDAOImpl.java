@@ -32,7 +32,7 @@ public class TeacherDAOImpl implements TeacherDAO {
                     String phone = resultSet.getString("phone");
                     int salary = resultSet.getInt("salary");
                     String category = resultSet.getString("category");
-                    Date birthday = resultSet.getDate("birthday");
+                    String birthday = resultSet.getString("birthday");
                     TeacherEntity teacherEntity = new TeacherEntity(id, firstName, lastName, address, phone, salary,
                             category, birthday);
                     teachers.add(teacherEntity);
@@ -56,7 +56,7 @@ public class TeacherDAOImpl implements TeacherDAO {
                     String phone = resultSet.getString("phone");
                     int salary = resultSet.getInt("salary");
                     String category = resultSet.getString("category");
-                    Date birthday = resultSet.getDate("birthday");
+                    String birthday = resultSet.getString("birthday");
                     teacherEntity = new TeacherEntity(id, firstName, lastName, address, phone, salary,
                             category, birthday);
                 }
@@ -75,7 +75,7 @@ public class TeacherDAOImpl implements TeacherDAO {
             preparedStatement.setString(4, entity.getPhone());
             preparedStatement.setInt(5, entity.getSalary());
             preparedStatement.setString(6, entity.getCategory());
-            preparedStatement.setDate(7, entity.getBirthday());
+            preparedStatement.setString(7, entity.getBirthday());
             return preparedStatement.executeUpdate();
         }
     }
@@ -90,7 +90,7 @@ public class TeacherDAOImpl implements TeacherDAO {
             preparedStatement.setString(4, entity.getPhone());
             preparedStatement.setInt(5, entity.getSalary());
             preparedStatement.setString(6, entity.getCategory());
-            preparedStatement.setDate(7, entity.getBirthday());
+            preparedStatement.setString(7, entity.getBirthday());
             preparedStatement.setInt(8, entity.getId());
             return preparedStatement.executeUpdate();
         }

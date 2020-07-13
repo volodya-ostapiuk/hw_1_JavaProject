@@ -8,6 +8,12 @@ public class SubjectEntity {
     public SubjectEntity() {
     }
 
+    public SubjectEntity(String name, String description) {
+        super();
+        this.name = name;
+        this.description = description;
+    }
+
     public SubjectEntity(int id, String name, String description) {
         this.id = id;
         this.name = name;

@@ -1,0 +1,187 @@
+package com.epam.view;
+
+import com.epam.controller.*;
+import com.epam.model.*;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.Date;
+import java.sql.SQLException;
+
+@WebServlet("/")
+public class ServletManagement extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+    private ClassController classController;
+    private LessonController lessonController;
+    private RoomController roomController;
+    private StudentController studentController;
+    private SubjectController subjectController;
+    private TeacherController teacherController;
+
+    public void init() {
+        classController = new ClassController();
+        lessonController = new LessonController();
+        roomController = new RoomController();
+        studentController = new StudentController();
+        subjectController = new SubjectController();
+        teacherController = new TeacherController();
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        doGet(req, resp);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getServletPath();
+        try {
+            switch (action) {
+                case "/newclass":
+                    showNewClassForm(req, resp);
+                    break;
+                case "/newlesson":
+                    showNewLessonForm(req, resp);
+                    break;
+                case "/newroom":
+                    showNewRoomForm(req, resp);
+                    break;
+                case "/newstudent":
+                    showNewStudentForm(req, resp);
+                    break;
+                case "/newsubject":
+                    showNewSubjectForm(req, resp);
+                    break;
+                case "/newteacher":
+                    showNewTeacherForm(req, resp);
+                    break;
+                case "/insertclass":
+                    insertClass(req, resp);
+                    break;
+                case "/insertlesson":
+                    insertLesson(req, resp);
+                    break;
+                case "/insertroom":
+                    insertRoom(req, resp);
+                    break;
+                case "/insertstudent":
+                    insertStudent(req, resp);
+                    break;
+                case "/insertsubject":
+                    insertSubject(req, resp);
+                    break;
+                case "/insertteacher":
+                    insertTeacher(req, resp);
+                    break;
+            }
+        } catch (SQLException exp) {
+            throw new ServletException(exp);
+        }
+    }
+
+    private void showNewClassForm(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("ClassForm.jsp");
+        dispatcher.forward(req, resp);
+    }
+
+    private void showNewLessonForm(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("LessonForm.jsp");
+        dispatcher.forward(req, resp);
+    }
+
+    private void showNewRoomForm(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("RoomForm.jsp");
+        dispatcher.forward(req, resp);
+    }
+
+    private void showNewStudentForm(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("StudentForm.jsp");
+        dispatcher.forward(req, resp);
+    }
+
+    private void showNewSubjectForm(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("SubjectForm.jsp");
+        dispatcher.forward(req, resp);
+    }
+
+    private void showNewTeacherForm(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("TeacherForm.jsp");
+        dispatcher.forward(req, resp);
+    }
+
+    private void insertClass(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
+        String name = req.getParameter("name");
+        String description = req.getParameter("description");
+        int teacherID = Integer.parseInt(req.getParameter("teacherID"));
+        ClassEntity classEntity = new ClassEntity(name, description, teacherID);
+        classController.create(classEntity);
+        resp.sendRedirect("listclass");
+    }
+
+    private void insertLesson(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
+        int classID = Integer.parseInt(req.getParameter("classID"));
+        int roomID = Integer.parseInt(req.getParameter("roomID"));
+        int subjectID = Integer.parseInt(req.getParameter("subjectID"));
+        int teacherID = Integer.parseInt(req.getParameter("teacherID"));
+        String topic = req.getParameter("topic");
+        String homework = req.getParameter("homework");
+        String date = req.getParameter("date");
+        LessonEntity lessonEntity = new LessonEntity(classID, roomID, subjectID, teacherID, topic, homework, date);
+        lessonController.create(lessonEntity);
+        resp.sendRedirect("listlesson");
+    }
+
+    private void insertRoom(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
+        String number = req.getParameter("number");
+        String description = req.getParameter("description");
+        RoomEntity roomEntity = new RoomEntity(number, description);
+        roomController.create(roomEntity);
+        resp.sendRedirect("listroom");
+    }
+
+    private void insertStudent(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
+        String firstName = req.getParameter("firstname");
+        String lastName = req.getParameter("lastname");
+        String address = req.getParameter("address");
+        String birthday = req.getParameter("birthday");
+        String phone = req.getParameter("phone");
+        int classID = Integer.parseInt(req.getParameter("classID"));
+        StudentEntity studentEntity = new StudentEntity(firstName, lastName, address, birthday, phone, classID);
+        studentController.create(studentEntity);
+        resp.sendRedirect("liststudent");
+    }
+
+    private void insertSubject(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
+        String name = req.getParameter("name");
+        String description = req.getParameter("description");
+        SubjectEntity subjectEntity = new SubjectEntity(name, description);
+        subjectController.create(subjectEntity);
+        resp.sendRedirect("listsubject");
+    }
+
+    private void insertTeacher(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
+        String firstName = req.getParameter("firstname");
+        String lastName = req.getParameter("lastname");
+        String address = req.getParameter("address");
+        String phone = req.getParameter("phone");
+        int salary = Integer.parseInt(req.getParameter("salary"));
+        String category = req.getParameter("category");
+        String birthday = req.getParameter("birthday");
+        TeacherEntity teacherEntity = new TeacherEntity(firstName, lastName, address, phone, salary,
+                category, birthday);
+        teacherController.create(teacherEntity);
+        resp.sendRedirect("listteacher");
+    }
+}

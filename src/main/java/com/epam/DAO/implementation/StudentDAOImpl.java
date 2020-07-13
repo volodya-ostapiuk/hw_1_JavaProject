@@ -28,7 +28,7 @@ public class StudentDAOImpl implements StudentDAO {
                     String firstName = resultSet.getString("first_name");
                     String lastName = resultSet.getString("last_name");
                     String address = resultSet.getString("address");
-                    Date birthday = resultSet.getDate("birthday");
+                    String birthday = resultSet.getString("birthday");
                     String phone = resultSet.getString("phone");
                     int classID = resultSet.getInt("class_id");
                     StudentEntity studentEntity = new StudentEntity(id, firstName, lastName, address, birthday,
@@ -51,7 +51,7 @@ public class StudentDAOImpl implements StudentDAO {
                     String firstName = resultSet.getString("first_name");
                     String lastName = resultSet.getString("last_name");
                     String address = resultSet.getString("address");
-                    Date birthday = resultSet.getDate("birthday");
+                    String birthday = resultSet.getString("birthday");
                     String phone = resultSet.getString("phone");
                     int classID = resultSet.getInt("class_id");
                     studentEntity = new StudentEntity(id, firstName, lastName, address, birthday, phone, classID);
@@ -68,7 +68,7 @@ public class StudentDAOImpl implements StudentDAO {
             preparedStatement.setString(1, entity.getFirstName());
             preparedStatement.setString(2, entity.getLastName());
             preparedStatement.setString(3, entity.getAddress());
-            preparedStatement.setDate(4, entity.getBirthday());
+            preparedStatement.setString(4, entity.getBirthday());
             preparedStatement.setString(5, entity.getPhone());
             preparedStatement.setInt(6, entity.getClassID());
             return preparedStatement.executeUpdate();
@@ -82,7 +82,7 @@ public class StudentDAOImpl implements StudentDAO {
             preparedStatement.setString(1, entity.getFirstName());
             preparedStatement.setString(2, entity.getLastName());
             preparedStatement.setString(3, entity.getAddress());
-            preparedStatement.setDate(4, entity.getBirthday());
+            preparedStatement.setString(4, entity.getBirthday());
             preparedStatement.setString(5, entity.getPhone());
             preparedStatement.setInt(6, entity.getClassID());
             preparedStatement.setInt(7, entity.getId());

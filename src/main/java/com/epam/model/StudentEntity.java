@@ -1,21 +1,30 @@
 package com.epam.model;
 
-import java.sql.Date;
-
 public class StudentEntity {
     private int id;
     private String firstName;
     private String lastName;
     private String address;
-    private Date birthday;
+    private String birthday;
     private String phone;
     private int classID;
 
     public StudentEntity() {
     }
 
+    public StudentEntity(String firstName, String lastName, String address,
+                         String birthday, String phone, int classID) {
+        super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.birthday = birthday;
+        this.phone = phone;
+        this.classID = classID;
+    }
+
     public StudentEntity(int id, String firstName, String lastName, String address,
-                         Date birthday, String phone, int classID) {
+                         String birthday, String phone, int classID) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -57,11 +66,11 @@ public class StudentEntity {
         this.address = address;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
