@@ -97,6 +97,24 @@ public class ServletManagement extends HttpServlet {
                 case "/deleteteacher":
                     deleteTeacher(req, resp);
                     break;
+                case "/editclass":
+                    showEditClassForm(req, resp);
+                    break;
+                case "/editlesson":
+                    showEditLessonForm(req, resp);
+                    break;
+                case "/editroom":
+                    showEditRoomForm(req, resp);
+                    break;
+                case "/editstudent":
+                    showEditStudentForm(req, resp);
+                    break;
+                case "/editsubject":
+                    showEditSubjectForm(req, resp);
+                    break;
+                case "/editteacher":
+                    showEditTeacherForm(req, resp);
+                    break;
             }
         } catch (SQLException exp) {
             throw new ServletException(exp);
@@ -243,5 +261,59 @@ public class ServletManagement extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         teacherController.delete(id);
         response.sendRedirect("listteacher");
+    }
+
+    private void showEditClassForm(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        ClassEntity clazz = classController.readById(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("ClassForm.jsp");
+        request.setAttribute("clazz", clazz);
+        dispatcher.forward(request, response);
+    }
+
+    private void showEditLessonForm(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        LessonEntity lesson = lessonController.readById(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("LessonForm.jsp");
+        request.setAttribute("lesson", lesson);
+        dispatcher.forward(request, response);
+    }
+
+    private void showEditRoomForm(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        RoomEntity room = roomController.readById(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("RoomForm.jsp");
+        request.setAttribute("room", room);
+        dispatcher.forward(request, response);
+    }
+
+    private void showEditStudentForm(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        StudentEntity student = studentController.readById(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("StudentForm.jsp");
+        request.setAttribute("student", student);
+        dispatcher.forward(request, response);
+    }
+
+    private void showEditSubjectForm(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        SubjectEntity subject = subjectController.readById(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("SubjectForm.jsp");
+        request.setAttribute("subject", subject);
+        dispatcher.forward(request, response);
+    }
+
+    private void showEditTeacherForm(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        TeacherEntity teacher = teacherController.readById(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("TeacherForm.jsp");
+        request.setAttribute("teacher", teacher);
+        dispatcher.forward(request, response);
     }
 }
