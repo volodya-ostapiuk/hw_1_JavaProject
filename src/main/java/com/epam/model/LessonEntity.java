@@ -1,7 +1,5 @@
 package com.epam.model;
 
-import java.sql.Date;
-
 public class LessonEntity {
     private int id;
     private int classID;
@@ -10,13 +8,25 @@ public class LessonEntity {
     private int teacherID;
     private String topic;
     private String homework;
-    private Date date;
+    private String date;
 
     public LessonEntity() {
     }
 
+    public LessonEntity(int classID, int roomID, int subjectID, int teacherID, String topic,
+                        String homework, String date) {
+        super();
+        this.classID = classID;
+        this.roomID = roomID;
+        this.subjectID = subjectID;
+        this.teacherID = teacherID;
+        this.topic = topic;
+        this.homework = homework;
+        this.date = date;
+    }
+
     public LessonEntity(int id, int classID, int roomID, int subjectID,
-                        int teacherID, String topic, String homework, Date date) {
+                        int teacherID, String topic, String homework, String date) {
         this.id = id;
         this.classID = classID;
         this.roomID = roomID;
@@ -83,11 +93,11 @@ public class LessonEntity {
         this.homework = homework;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

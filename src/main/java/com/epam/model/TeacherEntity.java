@@ -10,13 +10,25 @@ public class TeacherEntity {
     private String phone;
     private int salary;
     private String category;
-    private Date birthday;
+    private String birthday;
 
     public TeacherEntity() {
     }
 
+    public TeacherEntity(String firstName, String lastName, String address, String phone, int salary,
+                         String category, String birthday) {
+        super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phone = phone;
+        this.salary = salary;
+        this.category = category;
+        this.birthday = birthday;
+    }
+
     public TeacherEntity(int id, String firstName, String lastName, String address,
-                         String phone, int salary, String category, Date birthday) {
+                         String phone, int salary, String category, String birthday) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -83,11 +95,11 @@ public class TeacherEntity {
         this.category = category;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 }

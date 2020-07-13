@@ -9,6 +9,13 @@ public class ClassEntity {
     public ClassEntity() {
     }
 
+    public ClassEntity(String name, String description, int teacherID) {
+        super();
+        this.name = name;
+        this.description = description;
+        this.teacherID = teacherID;
+    }
+
     public ClassEntity(int id, String name, String description, int teacherID) {
         this.id = id;
         this.name = name;

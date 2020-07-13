@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LessonDAOImplementation implements LessonDAO {
+public class LessonDAOImpl implements LessonDAO {
     private static final String GET_ALL = "select * from lesson";
     private static final String GET_BY_ID = "select * from lesson where lesson_id=?";
     private static final String INSERT = "insert into lesson (class_id, room_id, subject_id, teacher_id, topic, " +
@@ -31,7 +31,7 @@ public class LessonDAOImplementation implements LessonDAO {
                     int teacherID = resultSet.getInt("teacher_id");
                     String topic = resultSet.getString("topic");
                     String homework = resultSet.getString("homework");
-                    Date date = resultSet.getDate("date");
+                    String date = resultSet.getString("date");
                     LessonEntity lessonEntity = new LessonEntity(id, classID, roomID, subjectID, teacherID,
                             topic, homework, date);
                     lessons.add(lessonEntity);
@@ -55,7 +55,7 @@ public class LessonDAOImplementation implements LessonDAO {
                     int teacherID = resultSet.getInt("teacher_id");
                     String topic = resultSet.getString("topic");
                     String homework = resultSet.getString("homework");
-                    Date date = resultSet.getDate("date");
+                    String date = resultSet.getString("date");
                     lessonEntity = new LessonEntity(id, classID, roomID, subjectID, teacherID, topic, homework, date);
                 }
             }
@@ -73,7 +73,7 @@ public class LessonDAOImplementation implements LessonDAO {
             preparedStatement.setInt(4, entity.getTeacherID());
             preparedStatement.setString(5, entity.getTopic());
             preparedStatement.setString(6, entity.getHomework());
-            preparedStatement.setDate(7, entity.getDate());
+            preparedStatement.setString(7, entity.getDate());
             return preparedStatement.executeUpdate();
         }
     }
@@ -88,7 +88,7 @@ public class LessonDAOImplementation implements LessonDAO {
             preparedStatement.setInt(4, entity.getTeacherID());
             preparedStatement.setString(5, entity.getTopic());
             preparedStatement.setString(6, entity.getHomework());
-            preparedStatement.setDate(7, entity.getDate());
+            preparedStatement.setString(7, entity.getDate());
             preparedStatement.setInt(8, entity.getId());
             return preparedStatement.executeUpdate();
         }
