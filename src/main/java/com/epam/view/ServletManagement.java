@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet("/")
 public class ServletManagement extends HttpServlet {
@@ -133,6 +134,26 @@ public class ServletManagement extends HttpServlet {
                 case "/updateteacher":
                     updateTeacher(req, resp);
                     break;
+                case "/listclass":
+                    listClass(req, resp);
+                    break;
+                case "/listlesson":
+                    listLesson(req, resp);
+                    break;
+                case "/listroom":
+                    listRoom(req, resp);
+                    break;
+                case "/liststudent":
+                    listStudent(req, resp);
+                    break;
+                case "/listsubject":
+                    listSubject(req, resp);
+                    break;
+                case "/listteacher":
+                    listTeacher(req, resp);
+                    break;
+                default:
+                    listStudent(req, resp);
             }
         } catch (SQLException exp) {
             throw new ServletException(exp);
@@ -342,7 +363,7 @@ public class ServletManagement extends HttpServlet {
         String description = req.getParameter("description");
         int teacherID = Integer.parseInt(req.getParameter("teacherID"));
         ClassEntity classEntity = new ClassEntity(id, name, description, teacherID);
-        classController.create(classEntity);
+        classController.update(classEntity);
         resp.sendRedirect("listclass");
     }
 
@@ -357,7 +378,7 @@ public class ServletManagement extends HttpServlet {
         String homework = req.getParameter("homework");
         String date = req.getParameter("date");
         LessonEntity lessonEntity = new LessonEntity(id, classID, roomID, subjectID, teacherID, topic, homework, date);
-        lessonController.create(lessonEntity);
+        lessonController.update(lessonEntity);
         resp.sendRedirect("listlesson");
     }
 
@@ -367,7 +388,7 @@ public class ServletManagement extends HttpServlet {
         String number = req.getParameter("number");
         String description = req.getParameter("description");
         RoomEntity roomEntity = new RoomEntity(id, number, description);
-        roomController.create(roomEntity);
+        roomController.update(roomEntity);
         resp.sendRedirect("listroom");
     }
 
@@ -381,7 +402,7 @@ public class ServletManagement extends HttpServlet {
         String phone = req.getParameter("phone");
         int classID = Integer.parseInt(req.getParameter("classID"));
         StudentEntity studentEntity = new StudentEntity(id, firstName, lastName, address, birthday, phone, classID);
-        studentController.create(studentEntity);
+        studentController.update(studentEntity);
         resp.sendRedirect("liststudent");
     }
 
@@ -391,7 +412,7 @@ public class ServletManagement extends HttpServlet {
         String name = req.getParameter("name");
         String description = req.getParameter("description");
         SubjectEntity subjectEntity = new SubjectEntity(id, name, description);
-        subjectController.create(subjectEntity);
+        subjectController.update(subjectEntity);
         resp.sendRedirect("listsubject");
     }
 
@@ -407,7 +428,55 @@ public class ServletManagement extends HttpServlet {
         String birthday = req.getParameter("birthday");
         TeacherEntity teacherEntity = new TeacherEntity(id, firstName, lastName, address, phone, salary,
                 category, birthday);
-        teacherController.create(teacherEntity);
+        teacherController.update(teacherEntity);
         resp.sendRedirect("listteacher");
+    }
+
+    private void listClass(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        List<ClassEntity> listClass = classController.readAll();
+        request.setAttribute("listClass", listClass);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("ClassList.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void listLesson(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        List<LessonEntity> listLesson = lessonController.readAll();
+        request.setAttribute("listLesson", listLesson);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("LessonList.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void listRoom(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        List<RoomEntity> listRoom = roomController.readAll();
+        request.setAttribute("listRoom", listRoom);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("RoomList.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void listStudent(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        List<StudentEntity> listStudent = studentController.readAll();
+        request.setAttribute("listStudent", listStudent);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("StudentList.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void listSubject(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        List<SubjectEntity> listSubject = subjectController.readAll();
+        request.setAttribute("listSubject", listSubject);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("SubjectList.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void listTeacher(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        List<TeacherEntity> listTeacher = teacherController.readAll();
+        request.setAttribute("listTeacher", listTeacher);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("TeacherList.jsp");
+        dispatcher.forward(request, response);
     }
 }
