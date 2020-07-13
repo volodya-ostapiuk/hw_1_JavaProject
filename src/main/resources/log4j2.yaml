@@ -1,0 +1,27 @@
+Configuration:
+  name: Log4j2_Config
+  Properties:
+    Property:
+      name: log-path
+      value: logs
+
+  Appenders:
+
+    File:
+      - #in the file will be recorded only “INFO”
+        name: logFileOnlyInfo
+        fileName: ${log-path}/logFileOnlyInfo.log
+        Filters:
+          ThresholdFilter:
+            level: warn
+            onMatch: DENY
+            onMismatch: NEUTRAL
+
+  Loggers:
+    Logger:
+      - name: com.epam.view.ServletManagement
+        additivity: false
+        level: all
+        AppenderRef:
+          - ref: logFileOnlyInfo
+            level: info
