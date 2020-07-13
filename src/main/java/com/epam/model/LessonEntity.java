@@ -100,4 +100,18 @@ public class LessonEntity {
     public void setDate(String date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "LessonEntity{" +
+                "id=" + id +
+                ", classID=" + classID +
+                ", roomID=" + roomID +
+                ", subjectID=" + subjectID +
+                ", teacherID=" + teacherID +
+                ", topic='" + topic + '\'' +
+                ", homework='" + homework + '\'' +
+                ", date='" + date + '\'' +
+                '}';
+    }
 }

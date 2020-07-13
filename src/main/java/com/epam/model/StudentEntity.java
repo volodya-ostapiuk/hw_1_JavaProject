@@ -89,4 +89,17 @@ public class StudentEntity {
     public void setClassID(int classID) {
         this.classID = classID;
     }
+
+    @Override
+    public String toString() {
+        return "StudentEntity{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", phone='" + phone + '\'' +
+                ", classID=" + classID +
+                '}';
+    }
 }

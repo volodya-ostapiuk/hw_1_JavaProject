@@ -10,13 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 @WebServlet("/")
 public class ServletManagement extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private static Logger logger = LogManager.getLogger();
     private ClassController classController;
     private LessonController lessonController;
     private RoomController roomController;
@@ -25,12 +27,12 @@ public class ServletManagement extends HttpServlet {
     private TeacherController teacherController;
 
     public void init() {
-        classController = new ClassController();
-        lessonController = new LessonController();
-        roomController = new RoomController();
-        studentController = new StudentController();
-        subjectController = new SubjectController();
-        teacherController = new TeacherController();
+        classController = new ClassController(this);
+        lessonController = new LessonController(this);
+        roomController = new RoomController(this);
+        studentController = new StudentController(this);
+        subjectController = new SubjectController(this);
+        teacherController = new TeacherController(this);
     }
 
     @Override
@@ -306,6 +308,7 @@ public class ServletManagement extends HttpServlet {
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         ClassEntity clazz = classController.readById(id);
+        logger.info(clazz);
         RequestDispatcher dispatcher = request.getRequestDispatcher("ClassForm.jsp");
         request.setAttribute("clazz", clazz);
         dispatcher.forward(request, response);
@@ -315,6 +318,7 @@ public class ServletManagement extends HttpServlet {
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         LessonEntity lesson = lessonController.readById(id);
+        logger.info(lesson);
         RequestDispatcher dispatcher = request.getRequestDispatcher("LessonForm.jsp");
         request.setAttribute("lesson", lesson);
         dispatcher.forward(request, response);
@@ -324,6 +328,7 @@ public class ServletManagement extends HttpServlet {
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         RoomEntity room = roomController.readById(id);
+        logger.info(room);
         RequestDispatcher dispatcher = request.getRequestDispatcher("RoomForm.jsp");
         request.setAttribute("room", room);
         dispatcher.forward(request, response);
@@ -333,6 +338,7 @@ public class ServletManagement extends HttpServlet {
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         StudentEntity student = studentController.readById(id);
+        logger.info(student);
         RequestDispatcher dispatcher = request.getRequestDispatcher("StudentForm.jsp");
         request.setAttribute("student", student);
         dispatcher.forward(request, response);
@@ -342,6 +348,7 @@ public class ServletManagement extends HttpServlet {
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         SubjectEntity subject = subjectController.readById(id);
+        logger.info(subject);
         RequestDispatcher dispatcher = request.getRequestDispatcher("SubjectForm.jsp");
         request.setAttribute("subject", subject);
         dispatcher.forward(request, response);
@@ -351,6 +358,7 @@ public class ServletManagement extends HttpServlet {
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         TeacherEntity teacher = teacherController.readById(id);
+        logger.info(teacher);
         RequestDispatcher dispatcher = request.getRequestDispatcher("TeacherForm.jsp");
         request.setAttribute("teacher", teacher);
         dispatcher.forward(request, response);
@@ -436,6 +444,9 @@ public class ServletManagement extends HttpServlet {
             throws SQLException, IOException, ServletException {
         List<ClassEntity> listClass = classController.readAll();
         request.setAttribute("listClass", listClass);
+        for (ClassEntity clazz : listClass) {
+            logger.info(clazz);
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("ClassList.jsp");
         dispatcher.forward(request, response);
     }
@@ -444,6 +455,9 @@ public class ServletManagement extends HttpServlet {
             throws SQLException, IOException, ServletException {
         List<LessonEntity> listLesson = lessonController.readAll();
         request.setAttribute("listLesson", listLesson);
+        for (LessonEntity lesson : listLesson) {
+            logger.info(lesson);
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("LessonList.jsp");
         dispatcher.forward(request, response);
     }
@@ -452,6 +466,9 @@ public class ServletManagement extends HttpServlet {
             throws SQLException, IOException, ServletException {
         List<RoomEntity> listRoom = roomController.readAll();
         request.setAttribute("listRoom", listRoom);
+        for (RoomEntity room : listRoom) {
+            logger.info(room);
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("RoomList.jsp");
         dispatcher.forward(request, response);
     }
@@ -460,6 +477,9 @@ public class ServletManagement extends HttpServlet {
             throws SQLException, IOException, ServletException {
         List<StudentEntity> listStudent = studentController.readAll();
         request.setAttribute("listStudent", listStudent);
+        for (StudentEntity student : listStudent) {
+            logger.info(student);
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("StudentList.jsp");
         dispatcher.forward(request, response);
     }
@@ -468,6 +488,9 @@ public class ServletManagement extends HttpServlet {
             throws SQLException, IOException, ServletException {
         List<SubjectEntity> listSubject = subjectController.readAll();
         request.setAttribute("listSubject", listSubject);
+        for (SubjectEntity subject : listSubject) {
+            logger.info(subject);
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("SubjectList.jsp");
         dispatcher.forward(request, response);
     }
@@ -476,7 +499,19 @@ public class ServletManagement extends HttpServlet {
             throws SQLException, IOException, ServletException {
         List<TeacherEntity> listTeacher = teacherController.readAll();
         request.setAttribute("listTeacher", listTeacher);
+        for (TeacherEntity teacher : listTeacher) {
+            logger.info(teacher);
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("TeacherList.jsp");
         dispatcher.forward(request, response);
+    }
+
+    public final void printResult(int result, String status) {
+        logger.info("Status is: " + status);
+        logger.info("Result is: " + result);
+    }
+
+    public final void printStatus(String status) {
+        logger.info("Status is: " + status);
     }
 }

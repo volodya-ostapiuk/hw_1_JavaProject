@@ -102,4 +102,18 @@ public class TeacherEntity {
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
+
+    @Override
+    public String toString() {
+        return "TeacherEntity{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", salary=" + salary +
+                ", category='" + category + '\'' +
+                ", birthday='" + birthday + '\'' +
+                '}';
+    }
 }
