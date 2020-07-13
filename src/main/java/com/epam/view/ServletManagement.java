@@ -79,6 +79,24 @@ public class ServletManagement extends HttpServlet {
                 case "/insertteacher":
                     insertTeacher(req, resp);
                     break;
+                case "/deleteclass":
+                    deleteClass(req, resp);
+                    break;
+                case "/deletelesson":
+                    deleteLesson(req, resp);
+                    break;
+                case "/deleteroom":
+                    deleteRoom(req, resp);
+                    break;
+                case "/deletestudent":
+                    deleteStudent(req, resp);
+                    break;
+                case "/deletesubject":
+                    deleteSubject(req, resp);
+                    break;
+                case "/deleteteacher":
+                    deleteTeacher(req, resp);
+                    break;
             }
         } catch (SQLException exp) {
             throw new ServletException(exp);
@@ -183,5 +201,47 @@ public class ServletManagement extends HttpServlet {
                 category, birthday);
         teacherController.create(teacherEntity);
         resp.sendRedirect("listteacher");
+    }
+
+    private void deleteClass(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        classController.delete(id);
+        response.sendRedirect("listclass");
+    }
+
+    private void deleteLesson(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        lessonController.delete(id);
+        response.sendRedirect("listlesson");
+    }
+
+    private void deleteRoom(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        roomController.delete(id);
+        response.sendRedirect("listroom");
+    }
+
+    private void deleteStudent(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        studentController.delete(id);
+        response.sendRedirect("liststudent");
+    }
+
+    private void deleteSubject(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        subjectController.delete(id);
+        response.sendRedirect("listsubject");
+    }
+
+    private void deleteTeacher(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        teacherController.delete(id);
+        response.sendRedirect("listteacher");
     }
 }
