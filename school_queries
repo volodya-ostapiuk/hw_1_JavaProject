@@ -1,0 +1,180 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema school
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `school` DEFAULT CHARACTER SET utf8 ;
+USE `school` ;
+
+-- -----------------------------------------------------
+-- Table `school`.`room`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `school`.`room` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `number` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `school`.`subject`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `school`.`subject` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `school`.`teacher`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `school`.`teacher` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NOT NULL,
+  `address` VARCHAR(45) NOT NULL,
+  `phone` VARCHAR(45) NOT NULL,
+  `salary` INT NOT NULL,
+  `category` VARCHAR(45) NOT NULL,
+  `birthday` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `school`.`class`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `school`.`class` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(100) NOT NULL,
+  `teacher_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_class_teacher_idx` (`teacher_id` ASC) VISIBLE,
+  CONSTRAINT `fk_class_teacher`
+    FOREIGN KEY (`teacher_id`)
+    REFERENCES `school`.`teacher` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `school`.`student`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `school`.`student` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NOT NULL,
+  `address` VARCHAR(45) NOT NULL,
+  `birthday` VARCHAR(45) NOT NULL,
+  `phone` VARCHAR(45) NOT NULL,
+  `class_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_student_class_idx` (`class_id` ASC) VISIBLE,
+  CONSTRAINT `fk_student_class`
+    FOREIGN KEY (`class_id`)
+    REFERENCES `school`.`class` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `school`.`lesson`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `school`.`lesson` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `class_id` INT NOT NULL,
+  `room_id` INT NOT NULL,
+  `subject_id` INT NOT NULL,
+  `teacher_id` INT NOT NULL,
+  `topic` VARCHAR(45) NOT NULL,
+  `homework` VARCHAR(100) NOT NULL,
+  `date` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_lesson_class_idx` (`class_id` ASC) VISIBLE,
+  INDEX `fk_lesson_room_idx` (`room_id` ASC) VISIBLE,
+  INDEX `fk_lesson_subject_idx` (`subject_id` ASC) VISIBLE,
+  INDEX `fk_lesson_teacher_idx` (`teacher_id` ASC) VISIBLE,
+  CONSTRAINT `fk_lesson_class`
+    FOREIGN KEY (`class_id`)
+    REFERENCES `school`.`class` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lesson_room`
+    FOREIGN KEY (`room_id`)
+    REFERENCES `school`.`room` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lesson_subject`
+    FOREIGN KEY (`subject_id`)
+    REFERENCES `school`.`subject` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lesson_teacher`
+    FOREIGN KEY (`teacher_id`)
+    REFERENCES `school`.`teacher` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Table `school`.`room`
+-- -----------------------------------------------------
+INSERT INTO `school`.`room` (`id`, `number`, `description`) VALUES ('1', '102A', 'Room is situated on 1st floor, the side room of 102');
+INSERT INTO `school`.`room` (`id`, `number`, `description`) VALUES ('2', '103', 'Room is situated on 1st floor');
+INSERT INTO `school`.`room` (`id`, `number`, `description`) VALUES ('3', '102', 'Room is situated on 1st floor');
+INSERT INTO `school`.`room` (`id`, `number`, `description`) VALUES ('4', '201', 'Room is situated on 2nd floor');
+INSERT INTO `school`.`room` (`id`, `number`, `description`) VALUES ('5', '101', 'Room is situated on 1st floor');
+
+-- -----------------------------------------------------
+-- Table `school`.`subject`
+-- -----------------------------------------------------
+INSERT INTO `school`.`subject` (`id`, `name`, `description`) VALUES ('1', 'Algebra', 'Subject is from 7th grade');
+INSERT INTO `school`.`subject` (`id`, `name`, `description`) VALUES ('2', 'English', 'Subject is from 1st grade');
+INSERT INTO `school`.`subject` (`id`, `name`, `description`) VALUES ('3', 'Math', 'Subject is from 1st grade');
+INSERT INTO `school`.`subject` (`id`, `name`, `description`) VALUES ('4', 'Astronomy', 'Subject is from 10th grade');
+INSERT INTO `school`.`subject` (`id`, `name`, `description`) VALUES ('5', 'Art', 'Subject is not mandatory');
+
+-- -----------------------------------------------------
+-- Table `school`.`teacher`
+-- -----------------------------------------------------
+INSERT INTO `school`.`teacher` (`id`, `first_name`, `last_name`, `address`, `phone`, `salary`, `category`, `birthday`) VALUES ('1', 'Galyna', 'Karpetska', 'Lviv', '101-55-85', '8000', 'A', '1970-10-12');
+INSERT INTO `school`.`teacher` (`id`, `first_name`, `last_name`, `address`, `phone`, `salary`, `category`, `birthday`) VALUES ('2', 'Anna', 'Vys', 'Lviv', '101-33-81', '5500', 'B', '1991-09-01');
+INSERT INTO `school`.`teacher` (`id`, `first_name`, `last_name`, `address`, `phone`, `salary`, `category`, `birthday`) VALUES ('3', 'Olga', 'Antonyk', 'Lviv', '101-44-21', '5000', 'B', '1985-01-14');
+INSERT INTO `school`.`teacher` (`id`, `first_name`, `last_name`, `address`, `phone`, `salary`, `category`, `birthday`) VALUES ('4', 'Iryna', 'Bevz', 'Kyiv', '202-11-93', '7000', 'A', '1952-10-22');
+INSERT INTO `school`.`teacher` (`id`, `first_name`, `last_name`, `address`, `phone`, `salary`, `category`, `birthday`) VALUES ('5', 'Yuriy', 'Sych', 'Lutsk', '303-99-85', '3000', 'C', '1995-04-03');
+
+-- -----------------------------------------------------
+-- Table `school`.`class`
+-- -----------------------------------------------------
+INSERT INTO `school`.`class` (`id`, `name`, `description`, `teacher_id`) VALUES ('1', '11B', 'Graduation class', '1');
+INSERT INTO `school`.`class` (`id`, `name`, `description`, `teacher_id`) VALUES ('2', '9B', 'Class is very friendly', '2');
+INSERT INTO `school`.`class` (`id`, `name`, `description`, `teacher_id`) VALUES ('3', '7C', 'Class is good in math', '3');
+INSERT INTO `school`.`class` (`id`, `name`, `description`, `teacher_id`) VALUES ('4', '1A', 'First grade class', '1');
+INSERT INTO `school`.`class` (`id`, `name`, `description`, `teacher_id`) VALUES ('5', '5D', 'First year in high school class', '4');
+
+-- -----------------------------------------------------
+-- Table `school`.`student`
+-- -----------------------------------------------------
+INSERT INTO `school`.`student` (`id`, `first_name`, `last_name`, `address`, `birthday`, `phone`, `class_id`) VALUES ('1', 'Volodymyr', 'Ostapiuk', 'Lviv', '1997-05-05', '101-55-42', '1');
+INSERT INTO `school`.`student` (`id`, `first_name`, `last_name`, `address`, `birthday`, `phone`, `class_id`) VALUES ('2', 'Viktoria', 'Kovalchuk', 'Lutsk', '2001-09-15', '303-99-81', '2');
+INSERT INTO `school`.`student` (`id`, `first_name`, `last_name`, `address`, `birthday`, `phone`, `class_id`) VALUES ('3', 'Andriy', 'Boyak', 'Lviv', '1997-10-28', '101-44-98', '1');
+INSERT INTO `school`.`student` (`id`, `first_name`, `last_name`, `address`, `birthday`, `phone`, `class_id`) VALUES ('4', 'Evita', 'Kysinya', 'Kyiv', '2008-04-09', '202-11-72', '5');
+INSERT INTO `school`.`student` (`id`, `first_name`, `last_name`, `address`, `birthday`, `phone`, `class_id`) VALUES ('5', 'Yuriy', 'Zvir', 'Lviv', '2005-10-09', '101-99-44', '3');
+
+-- -----------------------------------------------------
+-- Table `school`.`lesson`
+-- -----------------------------------------------------
+INSERT INTO `school`.`lesson` (`id`, `class_id`, `room_id`, `subject_id`, `teacher_id`, `topic`, `homework`, `date`) VALUES ('1', '1', '4', '2', '1', 'Walter Scoot novels', 'Read Aivengo', '2020-04-12');
+INSERT INTO `school`.`lesson` (`id`, `class_id`, `room_id`, `subject_id`, `teacher_id`, `topic`, `homework`, `date`) VALUES ('2', '1', '3', '4', '2', 'Planet Mars', 'Draw a Mars map', '2020-04-18');
+INSERT INTO `school`.`lesson` (`id`, `class_id`, `room_id`, `subject_id`, `teacher_id`, `topic`, `homework`, `date`) VALUES ('3', '3', '3', '5', '3', 'Portraits', 'Paint a portrait', '2020-03-27');
+INSERT INTO `school`.`lesson` (`id`, `class_id`, `room_id`, `subject_id`, `teacher_id`, `topic`, `homework`, `date`) VALUES ('4', '2', '2', '1', '5', 'Squares', 'Exc. 105-108', '2020-05-19');
+INSERT INTO `school`.`lesson` (`id`, `class_id`, `room_id`, `subject_id`, `teacher_id`, `topic`, `homework`, `date`) VALUES ('5', '5', '1', '2', '4', 'Agatha Cristie novels', 'Read Evil Under the Sun', '2020-04-12');
