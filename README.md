@@ -1,8 +1,10 @@
 # Java Lab Pet Project
-##Prerequisites
+## Prerequisites
   
- Before launching make sure you have [JDK 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) or JRE.
-##Launch
+Before launching make sure you have [JDK 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) or JRE.
+
+## Launch
+
 1. Download a project. 
 2. Create war file, go inside the project directory (outside the WEB-INF), then write the following in command line from that folder:
 	```shell script
