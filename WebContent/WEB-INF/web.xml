@@ -22,7 +22,7 @@
 	</context-param>
 
 	<servlet>
-		<servlet-name>ControllerServlet</servlet-name>
+		<servlet-name>ServletManagement</servlet-name>
 		<servlet-class>main.java.com.epam.view.ServletManagement</servlet-class>
 	</servlet>
 
