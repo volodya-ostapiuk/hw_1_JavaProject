@@ -1,0 +1,51 @@
+apply plugin: 'java'
+apply plugin: "jacoco"
+
+repositories {
+    mavenCentral()
+    maven {
+        url = 'http://repo.maven.apache.org/maven2'
+    }
+}
+
+dependencies {
+    implementation 'jstl:jstl:1.2'
+    implementation 'mysql:mysql-connector-java:5.1.30'
+    implementation 'org.apache.logging.log4j:log4j-api:2.9.1'
+    implementation 'org.apache.logging.log4j:log4j-core:2.13.2'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.4'
+    implementation 'org.junit.jupiter:junit-jupiter-engine:5.1.1'
+    testImplementation 'org.testng:testng:7.1.0'
+    testImplementation 'org.junit.platform:junit-platform-runner:1.1.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.1'
+    testImplementation 'org.mockito:mockito-junit-jupiter:2.18.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.4.2'
+    compileOnly 'javax.servlet:javax.servlet-api:3.1.0'
+    compileOnly 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.1'
+}
+
+group = 'com.epam'
+version = '1.0'
+sourceCompatibility = '8'
+
+test {
+    useJUnit()
+    maxHeapSize = '1G'
+}
+
+jacoco {
+    toolVersion = '0.8.1'
+}
+
+jacocoTestReport {
+    group = "reporting"
+    description = "Generate Jacoco coverage report in ."
+    reports {
+        xml.enabled true
+        html.enabled true
+        csv.enabled false
+        html.destination file("${buildDir}\\reports\\jacoco\\test")
+    }
+}
+
+build.finalizedBy(jacocoTestReport)
