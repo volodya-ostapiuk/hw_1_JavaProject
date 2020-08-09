@@ -48,4 +48,37 @@ jacocoTestReport {
     }
 }
 
-build.finalizedBy(jacocoTestReport)
+//build.finalizedBy(jacocoTestReport)
+
+task removeTmp() {
+    doLast {
+        file("${buildDir}\\tmp\\jar").delete()
+    }
+}
+
+build.finalizedBy(jacocoTestReport, removeTmp)
+
+class OpenTask extends DefaultTask {
+    @Input
+    String greeting = 'Gradle build of Java PetProject'
+
+    @TaskAction
+    def greet() {
+        println greeting
+    }
+}
+
+task showGradle(type: OpenTask)
+
+task showCredits(type: OpenTask) {
+    greeting = 'PetProject made by Volodymyr Ostapiuk'
+}
+
+test.dependsOn(showGradle, showCredits)
+
+task copy(type: Copy) {
+    description 'Copies the resource directory to the target directory.'
+    from 'gradle'
+    into 'target'
+    include('**/*.txt', '**/*.xml', '**/*.properties')
+}
