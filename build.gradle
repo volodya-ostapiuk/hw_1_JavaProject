@@ -4,7 +4,7 @@ apply plugin: "jacoco"
 repositories {
     mavenCentral()
     maven {
-        url = System.getProperty('maven.url')
+        url = 'http://repo.maven.apache.org/maven2'
     }
 }
 
@@ -30,7 +30,8 @@ sourceCompatibility = '8'
 
 test {
     useJUnit()
-    maxHeapSize = System.getProperty('MaxHeapSize')
+    maxHeapSize = System.getProperty('max.size')
+    maxParallelForks = System.getProperty('max.forks')
 }
 
 jacoco {
