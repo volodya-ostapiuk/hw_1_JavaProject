@@ -31,7 +31,6 @@ sourceCompatibility = '8'
 test {
     useJUnit()
     maxHeapSize = System.getProperty('max.size')
-    maxParallelForks = System.getProperty('max.forks')
 }
 
 jacoco {
