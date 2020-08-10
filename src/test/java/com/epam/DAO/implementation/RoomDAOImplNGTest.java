@@ -3,19 +3,18 @@ package com.epam.DAO.implementation;
 import com.epam.model.RoomEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.sql.SQLException;
 
-import static org.junit.Assert.*;
-
-public class RoomDAOImplTest {
+public class RoomDAOImplNGTest {
     private RoomDAOImpl roomDAO;
     public RoomEntity roomEntity1, roomEntity2, roomEntity3, roomEntity4, roomEntity5;
     private static Logger logger = LogManager.getLogger();
 
-    @Before
+    @BeforeClass
     public void createEntities() {
         roomEntity1 = new RoomEntity(1, "102A", "Room has 2 windows");
         roomEntity2 = new RoomEntity(16, "202", "Room has 3 windows");
@@ -24,22 +23,22 @@ public class RoomDAOImplTest {
         roomEntity5 = new RoomEntity(2, "003A", "Room has 0 windows");
     }
 
-    @Test
+    @Test(priority = 0)
     public void testCreate() throws SQLException {
         roomDAO = new RoomDAOImpl();
         roomDAO.create(roomEntity2);
         roomDAO.create(roomEntity5);
         printAddedEntity(roomEntity2);
         printAddedEntity(roomEntity5);
-        assertNull("Room wasn't created", roomDAO.readById(roomEntity1.getId()));
-        assertNotNull("Room was created", roomDAO.readById(roomEntity5.getId()));
-        assertEquals("Room wasn't created properly", roomDAO.readById(roomEntity2.getId())
-                .getNumber(), "202");
-        assertNotEquals("Room was created properly", roomDAO.readById(roomEntity5.getId())
-                .getNumber(), "102B");
+        Assert.assertNull(roomDAO.readById(roomEntity1.getId()), "Room wasn't created");
+        Assert.assertNotNull(roomDAO.readById(roomEntity5.getId()), "Room was created");
+        Assert.assertEquals(roomDAO.readById(roomEntity2.getId())
+                .getNumber(), "202", "Room wasn't created properly");
+        Assert.assertNotEquals(roomDAO.readById(roomEntity5.getId())
+                .getNumber(), "102B", "Room was created properly");
     }
 
-    @Test
+    @Test(priority = 2)
     public void testUpdate() throws SQLException {
         roomDAO = new RoomDAOImpl();
         roomDAO.create(roomEntity3);
@@ -52,17 +51,17 @@ public class RoomDAOImplTest {
         roomDAO.update(roomEntity4);
         printUpdatedEntity(roomEntity3);
         printUpdatedEntity(roomEntity4);
-        assertEquals("Room wasn't updated properly", roomDAO.readById(roomEntity3.getId())
-                .getNumber(), "127A");
-        assertNotEquals("Room wasn't updated properly", roomDAO.readById(roomEntity3.getId())
-                .getNumber(), "127");
-        assertEquals("Room wasn't updated properly", roomDAO.readById(roomEntity4.getId())
-                .getDescription(), "Room has 0 windows");
-        assertNotEquals("Room wasn't updated properly", roomDAO.readById(roomEntity4.getId())
-                .getDescription(), "Room has 5 windows");
+        Assert.assertEquals(roomDAO.readById(roomEntity3.getId())
+                .getNumber(), "127A", "Room wasn't updated properly");
+        Assert.assertNotEquals(roomDAO.readById(roomEntity3.getId())
+                .getNumber(), "127", "Room wasn't updated properly");
+        Assert.assertEquals(roomDAO.readById(roomEntity4.getId())
+                .getDescription(), "Room has 0 windows", "Room wasn't updated properly");
+        Assert.assertNotEquals(roomDAO.readById(roomEntity4.getId())
+                .getDescription(), "Room has 5 windows", "Room wasn't updated properly");
     }
 
-    @Test
+    @Test(priority = 4)
     public void testDelete() throws SQLException {
         roomDAO = new RoomDAOImpl();
         roomDAO.create(roomEntity1);
@@ -71,11 +70,11 @@ public class RoomDAOImplTest {
         printAddedEntity(roomEntity2);
         roomDAO.delete(roomEntity1.getId());
         logger.info("Room with id = " + roomEntity1.getId() + " was deleted.");
-        assertNull("Room wasn't deleted", roomDAO.readById(roomEntity1.getId()));
-        assertNotNull("Room was deleted", roomDAO.readById(roomEntity2.getId()));
+        Assert.assertNull(roomDAO.readById(roomEntity1.getId()), "Room wasn't deleted");
+        Assert.assertNotNull(roomDAO.readById(roomEntity2.getId()), "Room was deleted");
     }
 
-    @Test
+    @Test(priority = 3)
     public void testReadId() throws SQLException {
         roomDAO = new RoomDAOImpl();
         roomDAO.create(roomEntity1);
@@ -87,8 +86,8 @@ public class RoomDAOImplTest {
         RoomEntity entityRead2 = roomDAO.readById(roomEntity1.getId());
         logger.info("Room with id = " + roomEntity1.getId() + " was read.");
         logger.info("Room with id = " + roomEntity2.getId() + " was read.");
-        assertEquals("Room wasn't read properly", entityRead1.getId(), 1);
-        assertNotEquals("Room wasn't read properly", entityRead2.getId(), 111);
+        Assert.assertEquals(entityRead1.getId(), 1, "Room wasn't read properly");
+        Assert.assertNotEquals(entityRead2.getId(), 111, "Room wasn't read properly");
     }
 
     private void printAddedEntity(RoomEntity entity) {
